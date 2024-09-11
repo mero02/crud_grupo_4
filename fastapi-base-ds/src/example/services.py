@@ -24,7 +24,7 @@ def modificar_producto(
     db: Session, producto_id: int, producto: schemas.ProductoUpdate
 ) -> Producto:
     db_producto = leer_producto(db, producto_id)
-    return db_producto.update(db, producto)
+    return db_producto.update(db, nombre=producto.nombre, precio=producto.precio)
 
 
 def eliminar_producto(db: Session, producto_id: int) -> Producto:
