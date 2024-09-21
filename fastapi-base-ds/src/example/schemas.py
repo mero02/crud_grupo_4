@@ -8,7 +8,7 @@ from src.example import exceptions
 # Podemos crear atributos con ciertas reglas mediante el uso de un "Field" adecuado.
 # https://docs.pydantic.dev/latest/concepts/fields/
 
-
+# Schemas para Producto
 class ProductoBase(BaseModel):
     nombre: str
     precio: int
@@ -29,4 +29,40 @@ class Producto(ProductoBase):
 
     # from_atributes=True permite que Pydantic trabaje con modelos SQLAlchemy
     # más info.: https://docs.pydantic.dev/latest/api/config/#pydantic.config.ConfigDict.from_attributes
+    model_config = {"from_attributes": True}
+
+# Schemas para Cliente
+class ClienteBase(BaseModel):
+    nombre: str
+    email: str
+
+class ClienteCreate(ClienteBase):
+    pass
+
+class ClienteUpdate(ClienteBase):
+    pass
+
+class Cliente(ClienteBase):
+    id: int
+    fecha_creacion: datetime
+    pedidos: List["Pedido"] = []
+
+    model_config = {"from_attributes": True}
+
+# Schemas para Pedido
+class PedidoBase(BaseModel):
+    cliente_id: int
+    producto_id: int
+    cantidad: int
+
+class PedidoCreate(PedidoBase):
+    pass
+
+class PedidoUpdate(PedidoBase):
+    pass
+
+class Pedido(PedidoBase):
+    id: int
+    fecha_creacion: datetime
+
     model_config = {"from_attributes": True}

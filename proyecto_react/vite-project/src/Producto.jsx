@@ -17,7 +17,6 @@ function Producto({ data, onDelete, onEdit }) {
 
   return (
     <div className="producto">
-      <p>ID: {data?.id}</p>
       <p>Nombre: {data?.nombre}</p>
       <p>Precio: {data?.precio}</p>
       <button onClick={handleEdit} className="edit-btn">Editar</button>
