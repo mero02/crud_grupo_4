@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Producto from './Producto';
 import Cliente from './Cliente';
 import Pedido from './Pedido';
+import './App.css';
 
 function App() {
   return (
@@ -24,24 +25,9 @@ function App() {
 
 function HomePage() {
   return (
-    <Flex
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"  // Asegura que ocupe toda la altura de la pantalla
-      bg="gray.50"
-    >
-      <Box
-        textAlign="center"
-        p={5}
-        borderWidth="1px"
-        borderRadius="lg"
-        boxShadow="lg"
-        maxW={{ base: '90%', md: '500px' }} // Adaptable para móviles y tablets
-        w="100%"
-        bg="white"
-      >
-        <Text fontSize={{ base: '2xl', md: '3xl' }} fontWeight="bold" mb={5}>
+    <Flex className="home-page">
+      <Box className="home-box">
+        <Text className="home-text">
           Bienvenido a la app de gestión
         </Text>
 
@@ -51,8 +37,7 @@ function HomePage() {
           colorScheme="teal"
           size="lg"
           variant="solid"
-          mb={3}
-          w="100%"
+          className="home-button"
         >
           Ir a Productos
         </Button>
@@ -60,11 +45,10 @@ function HomePage() {
         <Button
           as={Link}
           to="/clientes"
-          colorScheme="blue"
+          colorScheme="teal"
           size="lg"
-          variant="outline"
-          mb={3}
-          w="100%"
+          variant="solid"
+          className="home-button"
         >
           Ir a Clientes
         </Button>
@@ -72,10 +56,10 @@ function HomePage() {
         <Button
           as={Link}
           to="/pedidos"
-          colorScheme="purple"
+          colorScheme="teal"
           size="lg"
-          variant="ghost"
-          w="100%"
+          variant="solid"
+          className="home-button"
         >
           Ir a Pedidos
         </Button>

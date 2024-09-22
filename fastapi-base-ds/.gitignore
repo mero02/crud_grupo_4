@@ -189,3 +189,6 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/python,react
+
+fastapi-base-ds/mi-db-sqlite.db
+fastapi-base-ds/*.db

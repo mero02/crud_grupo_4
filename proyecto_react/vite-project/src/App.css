@@ -1,0 +1,35 @@
+/*Estilos para App.jsx*/
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+    background-color: #171717; /* Color del fondo de la página */
+  }
+  
+  .home-box {
+    text-align: center;
+    padding: 20px;
+    border-width: 1px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    background-color: #212121; /* Color de fondo del box */
+  }
+  
+  .home-text {
+    color: rgb(255, 255, 255);
+    font-size: 2rem; /* Ajusta el tamaño para móviles */
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .home-button {
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #01003d3f;
+  }
+
+/*Estilos para Producto.jsx*/
