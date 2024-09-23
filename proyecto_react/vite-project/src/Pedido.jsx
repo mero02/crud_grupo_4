@@ -41,6 +41,7 @@ const Pedido = () => {
   };
 
   const handleDelete = (id) => {
+    if (window.confirm("¿Desea eliminar este pedido?"))
     fetch(`http://localhost:8000/pedidos/${id}`, { method: 'DELETE' })
       .then(() => setPedidos(prev => prev.filter(pedido => pedido.id !== id)))
       .catch(error => setError(error.message));
@@ -122,38 +123,37 @@ const Pedido = () => {
             </FormControl>
             <Button mt={4} colorScheme="teal" onClick={handleAddPedido}>Agregar Pedido</Button>
           </Box>
-  
-          {/* Lista de Pedidos */}
-          <Box p={4} borderWidth="1px" borderRadius="lg">
-            <Text fontSize="xl" mb={4}>Lista de Pedidos</Text>
-            {pedidos.length ? (
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Id_Cliente</Th>
-                    <Th>Id_Producto</Th>
-                    <Th>Cantidad</Th>
-                    <Th>Acciones</Th>
+        </Box>
+        {/* Lista de Pedidos */}
+        <Box p={4} borderWidth="1px" borderRadius="lg">
+          <Text fontSize="xl" mb={4}>Lista de Pedidos</Text>
+          {pedidos.length ? (
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Id_Cliente</Th>
+                  <Th>Id_Producto</Th>
+                  <Th>Cantidad</Th>
+                  <Th>Acciones</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {pedidos.map(pedido => (
+                  <Tr key={pedido.id}>
+                    <Td>{pedido.cliente_id}</Td>
+                    <Td>{pedido.producto_id}</Td>
+                    <Td>{pedido.cantidad}</Td>
+                    <Td>
+                      <Button colorScheme="blue" size="sm" onClick={() => handleEdit(pedido.id)}>Editar</Button>
+                      <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
+                    </Td>
                   </Tr>
-                </Thead>
-                <Tbody>
-                  {pedidos.map(pedido => (
-                    <Tr key={pedido.id}>
-                      <Td>{pedido.cliente_id}</Td>
-                      <Td>{pedido.producto_id}</Td>
-                      <Td>{pedido.cantidad}</Td>
-                      <Td>
-                        <Button colorScheme="blue" size="sm" onClick={() => handleEdit(pedido.id)}>Editar</Button>
-                        <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            ) : (
-              <Text>No hay pedidos disponibles.</Text>
-            )}
-          </Box>
+                ))}
+              </Tbody>
+            </Table>
+          ) : (
+            <Text>No hay pedidos disponibles.</Text>
+          )}
         </Box>
       </Flex>
   

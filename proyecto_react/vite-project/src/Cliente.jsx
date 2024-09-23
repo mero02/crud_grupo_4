@@ -67,7 +67,6 @@ const Cliente = () => {
   };
 
   if (error) return <Text>Error: {error}</Text>;
-  if (!clientes.length) return <Text>No hay clientes disponibles.</Text>;
 
   return (
     <Flex direction="column" height="100vh" p={4}>
@@ -92,7 +91,7 @@ const Cliente = () => {
       </Button>
 
       <Flex flex={1}>
-        {/* Columna izquierda: Lista de clientes */}
+        {/* Columna izquierda: Agregar clientes */}
         <Box width="40%" pr={4} overflowY="auto">
           <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
             <Text fontSize="xl" mb={4}>Agregar Nuevo Cliente</Text>
@@ -115,9 +114,10 @@ const Cliente = () => {
             <Button mt={4} colorScheme="teal" onClick={handleAddCliente}>Agregar Cliente</Button>
           </Box>
         </Box>
-      
-      <Box p={4} borderWidth="1px" borderRadius="lg">
-            <Text fontSize="xl" mb={4}>Lista de Clientes</Text>
+        {/* Columna derecha: Lista de clientes */}
+        <Box p={4} borderWidth="1px" borderRadius="lg">
+          <Text fontSize="xl" mb={4}>Lista de Clientes</Text>
+          {clientes.length ? (
             <Table variant="simple">
               <Thead>
                 <Tr>
@@ -139,7 +139,10 @@ const Cliente = () => {
                 ))}
               </Tbody>
             </Table>
-          </Box>
+          ) : (
+            <Text>No hay clientes disponibles.</Text>
+          )}
+        </Box>
       </Flex>
         <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
