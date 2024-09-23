@@ -67,7 +67,7 @@ const Pedido = () => {
   };
 
   if (error) return <Text>Error: {error}</Text>;
-  if (!pedidos.length) return <Text>No hay Pedidos disponibles.</Text>;
+  
 
   return (
     <Flex direction="column" height="100vh" p={4}>
@@ -88,11 +88,11 @@ const Pedido = () => {
         }}
         transition="all 0.2s"
       >
-      Inicio
+        Inicio
       </Button>
-
+  
       <Flex flex={1}>
-        {/* Columna izquierda: Lista de pedidos */}
+        {/* Columna izquierda: Agregar nuevo pedido */}
         <Box width="40%" pr={4} overflowY="auto">
           <Box p={4} borderWidth="1px" borderRadius="lg" mb={4}>
             <Text fontSize="xl" mb={4}>Agregar Nuevo Pedido</Text>
@@ -122,36 +122,42 @@ const Pedido = () => {
             </FormControl>
             <Button mt={4} colorScheme="teal" onClick={handleAddPedido}>Agregar Pedido</Button>
           </Box>
-        </Box>
-      
-      <Box p={4} borderWidth="1px" borderRadius="lg">
+  
+          {/* Lista de Pedidos */}
+          <Box p={4} borderWidth="1px" borderRadius="lg">
             <Text fontSize="xl" mb={4}>Lista de Pedidos</Text>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Id_Cliente</Th>
-                  <Th>Id_Producto</Th>
-                  <Th>Cantidad</Th>
-                  <Th>Acciones</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {pedidos.map(pedido => (
-                  <Tr key={pedido.id}>
-                    <Td>{pedido.cliente_id}</Td>
-                    <Td>{pedido.producto_id}</Td>
-                    <Td>{pedido.cantidad}</Td>
-                    <Td>
-                      <Button colorScheme="blue" size="sm" onClick={() => handleEdit(pedido.id)}>Editar</Button>
-                      <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
-                    </Td>
+            {pedidos.length ? (
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Id_Cliente</Th>
+                    <Th>Id_Producto</Th>
+                    <Th>Cantidad</Th>
+                    <Th>Acciones</Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
+                </Thead>
+                <Tbody>
+                  {pedidos.map(pedido => (
+                    <Tr key={pedido.id}>
+                      <Td>{pedido.cliente_id}</Td>
+                      <Td>{pedido.producto_id}</Td>
+                      <Td>{pedido.cantidad}</Td>
+                      <Td>
+                        <Button colorScheme="blue" size="sm" onClick={() => handleEdit(pedido.id)}>Editar</Button>
+                        <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            ) : (
+              <Text>No hay pedidos disponibles.</Text>
+            )}
           </Box>
+        </Box>
       </Flex>
-        <Modal isOpen={isOpen} onClose={onClose}>
+  
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Editar Pedido</ModalHeader>
@@ -161,21 +167,21 @@ const Pedido = () => {
               <FormLabel>Cliente</FormLabel>
               <Input
                 value={pedidoEditando?.cliente_id || ''}
-                onChange={(e) => setPedidoEditando({...pedidoEditando, cliente_id: e.target.value})}
+                onChange={(e) => setPedidoEditando({ ...pedidoEditando, cliente_id: e.target.value })}
               />
             </FormControl>
             <FormControl>
               <FormLabel>Producto</FormLabel>
               <Input
                 value={pedidoEditando?.producto_id || ''}
-                onChange={(e) => setPedidoEditando({...pedidoEditando, producto_id: e.target.value})}
+                onChange={(e) => setPedidoEditando({ ...pedidoEditando, producto_id: e.target.value })}
               />
             </FormControl>
             <FormControl>
               <FormLabel>Cantidad</FormLabel>
               <Input
                 value={pedidoEditando?.cantidad || ''}
-                onChange={(e) => setPedidoEditando({...pedidoEditando, cantidad: e.target.value})}
+                onChange={(e) => setPedidoEditando({ ...pedidoEditando, cantidad: e.target.value })}
               />
             </FormControl>
           </ModalBody>

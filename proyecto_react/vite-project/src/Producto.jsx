@@ -41,6 +41,7 @@ const Producto = () => {
   };
 
   const handleDelete = (id) => {
+    if (window.confirm("¿Desea eliminar este producto?"))
     fetch(`http://localhost:8000/productos/${id}`, { method: 'DELETE' })
       .then(() => setProductos(prev => prev.filter(producto => producto.id !== id)))
       .catch(error => setError(error.message));
@@ -120,8 +121,6 @@ const Producto = () => {
   };
 
   if (error) return <Text>Error: {error}</Text>;
-  if (!productos.length) return <Text>No hay productos disponibles.</Text>;
-
   return (
     <Flex direction="column" height="100vh" p={4}>
       <Button
@@ -143,7 +142,7 @@ const Producto = () => {
       >
         Inicio
       </Button>
-
+  
       <Flex flex={1}>
         {/* Columna izquierda: Lista de productos */}
         <Box width="40%" pr={4} overflowY="auto">
@@ -167,33 +166,37 @@ const Producto = () => {
             </FormControl>
             <Button mt={4} colorScheme="teal" onClick={handleAddProduct}>Agregar Producto</Button>
           </Box>
-
+  
           <Box p={4} borderWidth="1px" borderRadius="lg">
             <Text fontSize="xl" mb={4}>Lista de Productos</Text>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Nombre</Th>
-                  <Th>Precio</Th>
-                  <Th>Acciones</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {productos.map(producto => (
-                  <Tr key={producto.id}>
-                    <Td>{producto.nombre}</Td>
-                    <Td>{producto.precio}</Td>
-                    <Td>
-                      <Button colorScheme="blue" size="sm" onClick={() => handleEdit(producto.id)}>Editar</Button>
-                      <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(producto.id)}>Eliminar</Button>
-                    </Td>
+            {productos.length ? (
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Nombre</Th>
+                    <Th>Precio</Th>
+                    <Th>Acciones</Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
+                </Thead>
+                <Tbody>
+                  {productos.map(producto => (
+                    <Tr key={producto.id}>
+                      <Td>{producto.nombre}</Td>
+                      <Td>{producto.precio}</Td>
+                      <Td>
+                        <Button colorScheme="blue" size="sm" onClick={() => handleEdit(producto.id)}>Editar</Button>
+                        <Button colorScheme="red" size="sm" ml={2} onClick={() => handleDelete(producto.id)}>Eliminar</Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            ) : (
+              <Text>No hay productos disponibles.</Text>
+            )}
           </Box>
         </Box>
-
+  
         {/* Columna derecha: Gráficos */}
         <Box width="60%" pl={4}>
           <Grid templateColumns="repeat(2, 1fr)" gap={4}>
@@ -218,7 +221,7 @@ const Producto = () => {
           </Grid>
         </Box>
       </Flex>
-
+  
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -229,14 +232,14 @@ const Producto = () => {
               <FormLabel>Nombre</FormLabel>
               <Input
                 value={productoEditando?.nombre || ''}
-                onChange={(e) => setProductoEditando({...productoEditando, nombre: e.target.value})}
+                onChange={(e) => setProductoEditando({ ...productoEditando, nombre: e.target.value })}
               />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Precio</FormLabel>
               <Input
                 value={productoEditando?.precio || ''}
-                onChange={(e) => setProductoEditando({...productoEditando, precio: e.target.value})}
+                onChange={(e) => setProductoEditando({ ...productoEditando, precio: e.target.value })}
               />
             </FormControl>
           </ModalBody>
@@ -250,5 +253,5 @@ const Producto = () => {
       </Modal>
     </Flex>
   );
-};
+}
 export default Producto;
